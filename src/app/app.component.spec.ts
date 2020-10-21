@@ -63,6 +63,12 @@ describe('AppComponent', () => {
       expect(app.cockTailList.length).toBe(2);
     });
 
+    it('sort Data', () => {
+      app.isAscending = true;
+      app.sortData();
+      expect(app.isAscending).toBe(false);
+    });
+
   });
 
 });
