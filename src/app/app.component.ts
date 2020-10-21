@@ -36,8 +36,7 @@ export class AppComponent implements OnInit, OnDestroy{
      if (this.searchByIngredientSubscriptions) {this.searchByIngredientSubscriptions.unsubscribe(); }
    }
    // On change of filter type update the data and filter dropdowns
-   onChangeFilter(event): void{
-    this.selectedFilterType = event.target.value;
+   onChangeFilter(): void{
     if (this.selectedFilterType === FilterType.name) {  this.searchByName(); }
     if (this.selectedFilterType === FilterType.category) { this.searchByCategory(); }
     if (this.selectedFilterType === FilterType.ingredient) { this.searchByIngredient(); }

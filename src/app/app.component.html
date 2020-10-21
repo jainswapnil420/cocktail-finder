@@ -5,44 +5,49 @@
     <div class="container">
         <form>
             <div class="form-row">
+                <!-- Select type of filter -->
                 <div class="form-group col-md-2 col-sm-3 p-2">
-                    <label for="inputState">Filter Type</label>
-                    <select id="inputState" class="form-control" (change)="onChangeFilter($event)" [(ngModel)]='selectedFilterType' name="selectedFilterType">
-                      <option [value]="filterType.name">{{filterType.name}}</option>
-                      <option [value]="filterType.category">{{filterType.category}}</option>
-                      <option [value]="filterType.ingredient">{{filterType.ingredient}}</option>
+                    <label for="filterState">Filter Type</label>
+                    <select id="filterState" class="form-control" (change)="onChangeFilter()" [(ngModel)]='selectedFilterType' name="selectedFilterType">
+                        <option *ngFor="let filter of filterType | keyvalue" [value]="filter.value">{{filter.value}}</option>
                     </select>
                 </div>
-                <div class="form-group col-md-9 col-sm-8 p-2" *ngIf="selectedFilterType === filterType.name">
+                <!-- If selected filter type is name then display a text box to edit -->
+                <div *ngIf="selectedFilterType === filterType.name" class="form-group col-md-9 col-sm-8 p-2">
                     <label for="name">Name</label>
                     <input type="text" #cocktailNameInput class="form-control" id="name" placeholder="Name" [(ngModel)]="searchByNameValue" name="searchByNameValue" [value]="searchByNameValue" (input)="cocktailNameInput.value.length > 0 && searchByName()">
                 </div>
-                <div class="form-group col-md-9 col-sm-8 p-2" *ngIf="selectedFilterType === filterType.category">
+                <!-- If selected filter type is category then display a dropdown with avialable categories -->
+                <div *ngIf="selectedFilterType === filterType.category" class="form-group col-md-9 col-sm-8 p-2">
                     <label for="categories">Category</label>
                     <select id="categories" class="form-control" (change)="searchByCategory()" [(ngModel)]="searchByCategoryValue" name="searchByCategoryValue">
                   <option *ngFor="let category of categories;let i = index;" [value]="category" [selected]="i==0">{{category}}</option>
                 </select>
                 </div>
-                <div class="form-group col-md-9 col-sm-8 p-2" *ngIf="selectedFilterType === filterType.ingredient">
+                <!-- If selected filter type is ingredients then display a dropdown with available ingredients -->
+                <div *ngIf="selectedFilterType === filterType.ingredient" class="form-group col-md-9 col-sm-8 p-2">
                     <label for="ingredients">Ingredients</label>
                     <select id="ingredients" class="form-control" (change)="searchByIngredient()" [(ngModel)]="searchByIngredientValue" name="searchByIngredientValue">
                     <option *ngFor="let ingredient of ingredients;let i = index;" [value]="ingredient" [selected]="i==0">{{ingredient}}</option>
                   </select>
                 </div>
                 <div class="form-group col-md-1 col-sm-1 p-2 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-primary" (click)="sortData();">Sort</button>
+                    <button class="btn btn-primary btn-block" (click)="sortData();">Sort</button>
                 </div>
             </div>
         </form>
     </div>
+    <!-- Container for card list displayed for cocktail list -->
     <div class="container">
         <div class="card mb-3 border-dark text-white bg-dark" *ngFor='let cocktail of cockTailList'>
             <div class="card-horizontal">
                 <div class="img-square-wrapper">
+                    <!-- Adding a preview image for cocktail -->
                     <img src="{{cocktail.strDrinkThumb+'/preview'}}" alt="Card image cap">
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">{{cocktail.strDrink}}</h4>
+                    <!-- Display below information only if search is done by name -->
                     <ng-container *ngIf="selectedFilterType === filterType.name">
                         <p class="card-text"><strong>Category : </strong>{{cocktail.strCategory}}</p>
                         <p class="card-text"><strong>Type : </strong>{{cocktail.strAlcoholic}}</p>
