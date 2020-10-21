@@ -14,8 +14,8 @@
                     </select>
                 </div>
                 <div class="form-group col-md-9 col-sm-8 p-2" *ngIf="selectedFilterType === filterType.name">
-                    <label for="criteria">Name</label>
-                    <input type="text" #cocktailNameInput class="form-control" id="criteria" placeholder="Criteria" [(ngModel)]="searchByNameValue" name="searchByNameValue" [value]="searchByNameValue" (input)="cocktailNameInput.value.length > 0 && searchByName()">
+                    <label for="name">Name</label>
+                    <input type="text" #cocktailNameInput class="form-control" id="name" placeholder="Name" [(ngModel)]="searchByNameValue" name="searchByNameValue" [value]="searchByNameValue" (input)="cocktailNameInput.value.length > 0 && searchByName()">
                 </div>
                 <div class="form-group col-md-9 col-sm-8 p-2" *ngIf="selectedFilterType === filterType.category">
                     <label for="categories">Category</label>
