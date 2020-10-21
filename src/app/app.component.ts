@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy{
   searchByCategorySubscriptions: Subscription;
   searchByIngredientSubscriptions: Subscription;
 
-  constructor(private loadCocktailService: LoadcocktailService){}
+  constructor(public loadCocktailService: LoadcocktailService){}
   // Initialize value for first launch
   ngOnInit(): void{
     this.selectedFilterType = FilterType.name;
@@ -44,19 +44,19 @@ export class AppComponent implements OnInit, OnDestroy{
   // Get List of cocktails based on selected ingredient
   searchByIngredient(): void{
     this.searchByIngredientSubscriptions = this.loadCocktailService
-                                                  .loadByIngredients(this.searchByIngredientValue)
+                                                  .getByIngredients(this.searchByIngredientValue)
                                                   .subscribe(resp => this.cockTailList = resp);
   }
   // Get list of cocktails based on selected category
   searchByCategory(): void{
   this.searchByCategorySubscriptions = this.loadCocktailService
-                                          .loadByCategory(this.searchByCategoryValue)
+                                          .getByCategory(this.searchByCategoryValue)
                                           .subscribe(resp => this.cockTailList = resp);
   }
   // Get list of cocktails based on selected name
   searchByName(): void{
    this.searchByNameSubscriptions = this.loadCocktailService
-                                            .loadByName(this.searchByNameValue)
+                                            .getByName(this.searchByNameValue)
                                             .subscribe(resp => this.cockTailList = resp);
   }
   // Returns the sorted data
